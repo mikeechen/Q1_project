@@ -1,5 +1,4 @@
-(function(){
-// c87acfbb1f41bd23be2176298e5afc32
+(function() {
   'use strict';
 
   let games = [];
@@ -13,7 +12,8 @@
 
   $twitchlist.done(function(data) {
     data.top.forEach(function(elm) {
-      let obj = {};
+      const obj = {};
+
       obj.name = elm.game.name;
       obj.pic = elm.game.logo.large;
       obj.viewers = elm.viewers;
@@ -21,7 +21,7 @@
     });
     topviewers = games[0].viewers;
     localStorage.games = JSON.stringify(games);
-  })
+  });
 
   function gamelist() {
     $('section').children('#gamelistings').remove();
@@ -30,18 +30,20 @@
       games = JSON.parse(localStorage.games);
     }
 
-    let $row = $('<div id="gamelistings" class="row container">');
+    const $row = $('<div id="gamelistings" class="row container">');
 
-    games.forEach(function(game){
-      let $col = $('<div class="col s3">');
-      let $card = $('<div class="gamecard card">');
-      let $cardimg = $('<div class="card-image">');
-      let $cardcont = $('<div class="card-content">');
-      let $img = $('<img class="gameimg">');
-      $img.attr({src: game.pic});
+    games.forEach(function(game) {
+      const $col = $('<div class="col s3">');
+      const $card = $('<div class="gamecard card">');
+      const $cardimg = $('<div class="card-image">');
+      const $cardcont = $('<div class="card-content">');
+      const $img = $('<img class="gameimg">');
+
+      $img.attr({ src: game.pic });
       $cardimg.append($img);
       $card.append($cardimg);
-      let $title = $(`<a class="games" href="#"><p class="pink-text text-lighten-2">${game.name}</p></a><p id="view">Viewers: ${game.viewers}</p>`);
+      const $title = $(`<a class="games" href="#"><p class="pink-text text-lighten-2">${game.name}</p></a><p id="view">Viewers: ${game.viewers}</p>`);
+
       if (!game.viewers) {
         $('#view').remove();
       }
@@ -60,48 +62,52 @@
   }
 
   function listwine() {
-    let $row = $('<div id="winelistings" class="container row">');
+    const $row = $('<div id="winelistings" class="container row">');
 
-    winelist.forEach(function(wine){
-      let $col = $('<div class="col s4">');
-      let $card = $('<div class="winecard card">');
-      let $cardimg = $('<div class="card-image">');
-      let $cardcont = $('<div class="card-content">');
-      let $cardaction = $('<div class="card-action">');
-      let $img = $('<img class="winelbl">');
-      $img.attr({src: wine.label});
+    winelist.forEach(function(wine) {
+      const $col = $('<div class="col s4">');
+      const $card = $('<div class="winecard card">');
+      const $cardimg = $('<div class="card-image">');
+      const $cardcont = $('<div class="card-content">');
+      const $cardaction = $('<div class="card-action">');
+      const $img = $('<img class="winelbl">');
+
+      $img.attr({ src: wine.label });
       $cardimg.append($img);
       $card.append($cardimg);
-      let $title = $(`<p class="pink-text text-lighten-2">${wine.name}</p>
+      const $title = $(`<p class="pink-text text-lighten-2">${wine.name}</p>
                       <p id="priceandrating">Price: $${wine.price} Rating: ${wine.rating}</p>`);
+
       $cardcont.append($title);
       $cardaction.append(`<a href="${wine.url}">Find it on Wine.com!</a>`);
       $card.append($cardcont);
       $card.append($cardaction);
       $col.append($card);
       $row.append($col);
-    })
+    });
 
     $('section').append($row);
     const $streambutt = $(`<a href="https://www.twitch.tv/directory/game/${gamename}">
                           <button class="center-align btn offset-s3 col s6 pink lighten-2" type="button">
                           Go to Twitch!</button></a>`);
+
     $('#winelistings').append($streambutt);
-    winelist=[];
+    winelist = [];
   }
 
   function initfunc() {
-    $('#headtext').fadeOut('slow', function(){
-        $('#headtext').fadeIn('slow').text('Are You Watching or Streaming?');
-        let $stream = $('<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="stream" value="stream">Streaming</button>');
-        let $watch = $('<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="watch" value="watch">Watching</button>');
-        $('form').append($stream);
-        $('form').append($watch);
+    $('#headtext').fadeOut('slow', function() {
+      $('#headtext').fadeIn('slow').text('Are You Watching or Streaming?');
+      const $stream = $('<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="stream" value="stream">Streaming</button>');
+      const $watch = $('<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="watch" value="watch">Watching</button>');
+
+      $('form').append($stream);
+      $('form').append($watch);
     });
-    $('#startbutt').fadeOut('slow', function(){
+    $('#startbutt').fadeOut('slow', function() {
       $('#startbutt').remove();
     });
-    $('#subheader').fadeOut('slow', function(){
+    $('#subheader').fadeOut('slow', function() {
       $('#subheader').remove();
     });
     const $breadcrumb = $(`<div class="bread nav-wrapper container">
@@ -109,45 +115,38 @@
                           <a href="#" class="breadcrumb">User</a>
                           </div>
                           </div>`);
+
     $('nav').append($breadcrumb);
   }
 
-  function saveinfo(event) {
-    if (user === '') {
-      user = $(event.target).val();
-      nextstep(user, variety);
-    } else if (variety === '') {
-      variety = $(event.target).val();
-      nextstep(user, variety);
-    }
-  }
-
-  function nextstep(user, variety) {
+  function nextstep(us, va) {
     let $bread = $(`<a href="#" id="variety" class="breadcrumb">Variety</a>`);
-    if (variety === '') {
+
+    if (va === '') {
       $('.breadcrumbwrapper').append($bread);
-      $('form').children().fadeOut('slow', function(){
+      $('form').children().fadeOut('slow', function() {
         $('form').children().remove();
       });
-      $('#headtext').fadeOut('slow', function(){
-          $('#headtext').fadeIn('slow').text('Which Variety of Wine do you like?');
-          let $red = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="red" value="red">Red</button>`);
-          let $white = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="white" value="white">White</button>`);
-          let $sparkling = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="spakling" value="sparkling">Sparkling</button>`)
-          $('form').append($red);
-          $('form').append($white);
-          $('form').append($sparkling);
+      $('#headtext').fadeOut('slow', function() {
+        $('#headtext').fadeIn('slow').text('Which Variety of Wine do you like?');
+        const $red = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="red" value="red">Red</button>`);
+        const $white = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="white" value="white">White</button>`);
+        const $sparkling = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="spakling" value="sparkling">Sparkling</button>`);
+
+        $('form').append($red);
+        $('form').append($white);
+        $('form').append($sparkling);
       });
     } else {
       $bread = $(`<a href="#" id="game" class="breadcrumb">Games</a>`);
       $('.breadcrumbwrapper').append($bread);
-      $('form').children().fadeOut('slow', function(){
-      $('form').children().remove();
+      $('form').children().fadeOut('slow', function() {
+        $('form').children().remove();
       });
-      $('#headtext').fadeOut('slow', function(){
-          $('#headtext').fadeIn('slow').text('Which Game are You Watching?');
-          $('section').toggleClass('valign-wrapper');
-          gamelist();
+      $('#headtext').fadeOut('slow', function() {
+        $('#headtext').fadeIn('slow').text('Which Game are You Watching?');
+        $('section').toggleClass('valign-wrapper');
+        gamelist();
       });
     }
   }
@@ -156,12 +155,12 @@
     event.preventDefault();
     viewers = parseInt($(event.target).parent().siblings('#view').text().substring(9));
     gamename = $(event.target).text();
-    $('#headtext').fadeOut('slow', function(){
-        $('#headtext').fadeIn('slow').text('I\'m Thinking...');
-        $('section').toggleClass('valign-wrapper');
-        $('#theform').append(`<div id="progressbar" class="progress">
-                              <div class="indeterminate"></div>
-                              </div>`);
+    $('#headtext').fadeOut('slow', function() {
+      $('#headtext').fadeIn('slow').text('I\'m Thinking...');
+      $('section').toggleClass('valign-wrapper');
+      $('#theform').append(`<div id="progressbar" class="progress">
+                            <div class="indeterminate"></div>
+                            </div>`);
     });
     $('section').children('#gamelistings').fadeOut('slow', function() {
       $('section').children('#gamelistings').remove();
@@ -179,16 +178,17 @@
     } else if (user === 'watch') {
       regioncode = wregion[Math.random() * wregion.length];
     }
-    let $wines = $.getJSON(`http://services.wine.com/api/beta2/service.svc/JSON/catalog?size=6&apikey=c87acfbb1f41bd23be2176298e5afc32&term=${variety}+wine&filter=rating(${points}|${points})+categories(490+${regioncode})`)
+    const $wines = $.getJSON(`http://services.wine.com/api/beta2/service.svc/JSON/catalog?size=6&apikey=c87acfbb1f41bd23be2176298e5afc32&instock=true&term=${variety}+wine&filter=rating(${points}|${points})+categories(490+${regioncode})`);
+
     $wines.done(function(data) {
-      // console.log(data.Products.List);
-      $('#headtext').fadeOut('fast', function(){
+      $('#headtext').fadeOut('fast', function() {
         $('#headtext').fadeIn('slow').text('Here\'s your list of wine! Enjoy!' );
         $('section').toggleClass('valign-wrapper');
         $('#progressbar').remove();
       });
-      data.Products.List.forEach(function(elm){
-        let obj = {};
+      data.Products.List.forEach(function(elm) {
+        const obj = {};
+
         obj.name = elm.Name;
         obj.label = elm.Labels[0].Url;
         obj.price = elm.PriceRetail;
@@ -199,17 +199,20 @@
       listwine();
     });
     const $bread = $(`<a href="#" id="results" class="breadcrumb">Results</a>`);
+
     $('.breadcrumbwrapper').append($bread);
   }
 
   function getgames(event) {
     event.preventDefault();
     const searchterm = $('#search').val();
+
     $twitchlist = $.getJSON(`https://api.twitch.tv/kraken/search/games?q=${searchterm}&type=suggest`);
     $twitchlist.done(function(data) {
       games = [];
-      data.games.forEach(function(elm){
-        let obj = {};
+      data.games.forEach(function(elm) {
+        const obj = {};
+
         obj.name = elm.name;
         obj.pic = elm.logo.large;
         obj.viewers = elm.popularity;
@@ -222,13 +225,13 @@
   function usebreadcrumb(event) {
     event.preventDefault();
     const value = $(event.target).text().toLowerCase();
-    console.log(value);
+
     if (value === 'user') {
       user = '';
       variety = '';
       viewers = 0;
       gamename = '';
-      $('form').children().fadeOut('slow', function(){
+      $('form').children().fadeOut('slow', function() {
         $('form').children().remove();
       });
       $('nav').children('.bread').remove();
@@ -243,7 +246,7 @@
       variety = '';
       viewers = 0;
       gamename = '';
-      $('form').children().fadeOut('slow', function(){
+      $('form').children().fadeOut('slow', function() {
         $('form').children().remove();
       });
       $('section').children('#gamelistings').remove();
@@ -266,6 +269,16 @@
         $('form').removeAttr('id');
       }
       nextstep();
+    }
+  }
+
+  function saveinfo(event) {
+    if (user === '') {
+      user = $(event.target).val();
+      nextstep(user, variety);
+    } else if (variety === '') {
+      variety = $(event.target).val();
+      nextstep(user, variety);
     }
   }
 
