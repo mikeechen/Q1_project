@@ -30,7 +30,8 @@ footer {
   margin-left: 4px;
 }
 
-.gameimg {
+.gamecard {
+  height: 230px;
 }
 
 .winelbl {
@@ -39,4 +40,24 @@ footer {
 
 .winecard {
   height: 500px;
+}
+
+::-webkit-input-placeholder {
+   color: grey;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: grey;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: grey;
+}
+
+:-ms-input-placeholder {
+   color: grey;
+}
+
+.logo {
+  margin-right: 10px;
 }
