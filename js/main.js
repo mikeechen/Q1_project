@@ -83,10 +83,18 @@ function initfunc() {
   $('#startbutt').fadeOut('slow', function(){
     $('#startbutt').remove();
   });
+  const $breadcrumb = $(`<div class="nav-wrapper container">
+                        <div class="breadcrumbwrapper col s12">
+                        <a href="#" class="breadcrumb">User</a>
+                        </div>
+                        </div>`);
+  $('nav').append($breadcrumb);
 }
 
 function saveinfo(event) {
+  let $bread = $(`<a href="#" class="breadcrumb">Veriety</a>`);
   if (user === '') {
+    $('.breadcrumbwrapper').append($bread);
     user = $(event.target).val();
     $('form').children().fadeOut('slow', function(){
       $('form').children().remove();
@@ -95,13 +103,17 @@ function saveinfo(event) {
         $('#headtext').fadeIn('slow').text('Which Veriety of Wine do you like?');
         let $red = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="red" value="red">Red</button>`);
         let $white = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="white" value="white">White</button>`);
+        let $sparkling = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="spakling" value="sparkling">Sparkling</button>`)
         $('form').append($red);
         $('form').append($white);
+        $('form').append($sparkling);
     });
   } else if (variety === '') {
+    $bread = $(`<a href="#" class="breadcrumb">Games</a>`);
+    $('.breadcrumbwrapper').append($bread);
     variety = $(event.target).val();
     $('form').children().fadeOut('slow', function(){
-      $('form').children().remove();
+    $('form').children().remove();
     });
     $('#headtext').fadeOut('slow', function(){
         $('#headtext').fadeIn('slow').text('Which Game are You Watching?');
@@ -124,10 +136,12 @@ function getwine(event) {
   $('section').children('#listings').fadeOut('slow', function() {
     $('section').children('#listings').remove();
   });
+
   const points = 90 + Math.round(viewers / topviewers * 10);
   const sregion = [103, 111, 114, 105, 109, 106, 112];
   const wregion = [101, 104, 108, 10038, 107, 115, 113];
   let regioncode;
+
   if (user === 'stream') {
     regioncode = sregion[Math.random() * sregion.length];
   } else if (user === 'watch') {
@@ -152,6 +166,8 @@ function getwine(event) {
     });
     listwine();
   });
+  const $bread = $(`<a href="#" class="breadcrumb">Results</a>`);
+  $('.breadcrumbwrapper').append($bread);
 }
 
 $('#startbutt').click(initfunc);

@@ -34,10 +34,9 @@ footer {
 }
 
 .winelbl {
-  width: 50%;
-  height: auto;
+  max-height: 300px;
 }
 
 .winecard {
-  min-height: 400px;
+  height: 500px;
 }
