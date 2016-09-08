@@ -20,11 +20,17 @@
       games.push(obj);
     });
     topviewers = games[0].viewers;
+    localStorage.games = JSON.stringify(games);
   })
 
   function gamelist() {
-    $('section').children('#listings').remove();
-    let $row = $('<div id="listings" class="row container">');
+    $('section').children('#gamelistings').remove();
+
+    if (games.length === 0) {
+      games = JSON.parse(localStorage.games);
+    }
+
+    let $row = $('<div id="gamelistings" class="row container">');
 
     games.forEach(function(game){
       let $col = $('<div class="col s3">');
@@ -47,13 +53,14 @@
     $('section').append($row);
     if ($('form').is('#searchgames') === false) {
       $('form').append(`<div class="col offset-s2 s7"><input type="text" placeholder="Can't find your game?" id="search" name="search"/></div>`);
-      $('form').append(`<input type="submit" value="Search" class="btn waves-effect waves-light pink lighten-2 left"/>`);
+      $('form').append(`<input type="submit" value="Search" id="searchbutt" class="btn waves-effect waves-light pink lighten-2 left"/>`);
       $('form').attr('id', 'searchgames');
     }
+    games = [];
   }
 
   function listwine() {
-    let $row = $('<div id="listing" class="container row">');
+    let $row = $('<div id="winelistings" class="container row">');
 
     winelist.forEach(function(wine){
       let $col = $('<div class="col s4">');
@@ -79,7 +86,7 @@
     const $streambutt = $(`<a href="https://www.twitch.tv/directory/game/${gamename}">
                           <button class="center-align btn offset-s3 col s6 pink lighten-2" type="button">
                           Go to Twitch!</button></a>`);
-    $('#listing').append($streambutt);
+    $('#winelistings').append($streambutt);
     winelist=[];
   }
 
@@ -94,7 +101,10 @@
     $('#startbutt').fadeOut('slow', function(){
       $('#startbutt').remove();
     });
-    const $breadcrumb = $(`<div class="nav-wrapper container">
+    $('#subheader').fadeOut('slow', function(){
+      $('#subheader').remove();
+    });
+    const $breadcrumb = $(`<div class="bread nav-wrapper container">
                           <div class="breadcrumbwrapper col s12">
                           <a href="#" class="breadcrumb">User</a>
                           </div>
@@ -103,10 +113,19 @@
   }
 
   function saveinfo(event) {
-    let $bread = $(`<a href="#" class="breadcrumb">Variety</a>`);
     if (user === '') {
-      $('.breadcrumbwrapper').append($bread);
       user = $(event.target).val();
+      nextstep(user, variety);
+    } else if (variety === '') {
+      variety = $(event.target).val();
+      nextstep(user, variety);
+    }
+  }
+
+  function nextstep(user, variety) {
+    let $bread = $(`<a href="#" id="variety" class="breadcrumb">Variety</a>`);
+    if (variety === '') {
+      $('.breadcrumbwrapper').append($bread);
       $('form').children().fadeOut('slow', function(){
         $('form').children().remove();
       });
@@ -119,10 +138,9 @@
           $('form').append($white);
           $('form').append($sparkling);
       });
-    } else if (variety === '') {
-      $bread = $(`<a href="#" class="breadcrumb">Games</a>`);
+    } else {
+      $bread = $(`<a href="#" id="game" class="breadcrumb">Games</a>`);
       $('.breadcrumbwrapper').append($bread);
-      variety = $(event.target).val();
       $('form').children().fadeOut('slow', function(){
       $('form').children().remove();
       });
@@ -145,10 +163,12 @@
                               <div class="indeterminate"></div>
                               </div>`);
     });
-    $('section').children('#listings').fadeOut('slow', function() {
-      $('section').children('#listings').remove();
+    $('section').children('#gamelistings').fadeOut('slow', function() {
+      $('section').children('#gamelistings').remove();
     });
-    $('#searchgames').remove();
+    $('form').removeAttr('id');
+    $('#search').remove();
+    $('#searchbutt').remove();
     const points = 90 + Math.round(viewers / topviewers * 10);
     const sregion = [103, 111, 114, 105, 109, 106, 112];
     const wregion = [101, 104, 108, 10038, 107, 115, 113];
@@ -162,7 +182,7 @@
     let $wines = $.getJSON(`http://services.wine.com/api/beta2/service.svc/JSON/catalog?size=6&apikey=c87acfbb1f41bd23be2176298e5afc32&term=${variety}+wine&filter=rating(${points}|${points})+categories(490+${regioncode})`)
     $wines.done(function(data) {
       // console.log(data.Products.List);
-      $('#headtext').fadeOut('slow', function(){
+      $('#headtext').fadeOut('fast', function(){
         $('#headtext').fadeIn('slow').text('Here\'s your list of wine! Enjoy!' );
         $('section').toggleClass('valign-wrapper');
         $('#progressbar').remove();
@@ -178,17 +198,15 @@
       });
       listwine();
     });
-    const $bread = $(`<a href="#" class="breadcrumb">Results</a>`);
+    const $bread = $(`<a href="#" id="results" class="breadcrumb">Results</a>`);
     $('.breadcrumbwrapper').append($bread);
   }
 
   function getgames(event) {
     event.preventDefault();
     const searchterm = $('#search').val();
-    console.log(searchterm);
     $twitchlist = $.getJSON(`https://api.twitch.tv/kraken/search/games?q=${searchterm}&type=suggest`);
     $twitchlist.done(function(data) {
-      console.log(data.games);
       games = [];
       data.games.forEach(function(elm){
         let obj = {};
@@ -201,8 +219,59 @@
     });
   }
 
+  function usebreadcrumb(event) {
+    event.preventDefault();
+    const value = $(event.target).text().toLowerCase();
+    console.log(value);
+    if (value === 'user') {
+      user = '';
+      variety = '';
+      viewers = 0;
+      gamename = '';
+      $('form').children().fadeOut('slow', function(){
+        $('form').children().remove();
+      });
+      $('nav').children('.bread').remove();
+      $('section').children('#gamelistings').remove();
+      $('section').children('#winelistings').remove();
+      if ($('section').hasClass('valign-wrapper') === false) {
+        $('section').toggleClass('valign-wrapper');
+        $('form').removeAttr('id');
+      }
+      initfunc();
+    } else if (value === 'variety') {
+      variety = '';
+      viewers = 0;
+      gamename = '';
+      $('form').children().fadeOut('slow', function(){
+        $('form').children().remove();
+      });
+      $('section').children('#gamelistings').remove();
+      $('section').children('#winelistings').remove();
+      $('nav').children('.bread').children('.breadcrumbwrapper').children('#variety').remove();
+      $('nav').children('.bread').children('.breadcrumbwrapper').children('#game').remove();
+      $('nav').children('.bread').children('.breadcrumbwrapper').children('#results').remove();
+      if ($('section').hasClass('valign-wrapper') === false) {
+        $('section').toggleClass('valign-wrapper');
+        $('form').removeAttr('id');
+      }
+      nextstep(user, variety);
+    } else if (value === 'games') {
+      viewers = 0;
+      gamename = '';
+      $('section').children('#winelistings').remove();
+      $('nav').children('.bread').children('.breadcrumbwrapper').children('#results').remove();
+      if ($('section').hasClass('valign-wrapper') === false) {
+        $('section').toggleClass('valign-wrapper');
+        $('form').removeAttr('id');
+      }
+      nextstep();
+    }
+  }
+
   $('#startbutt').click(initfunc);
   $('form').on('click', '.button', saveinfo);
   $('section').on('click', '.games', getwine);
   $('form').submit(getgames);
+  $('nav').on('click', '.breadcrumb', usebreadcrumb);
 })();
