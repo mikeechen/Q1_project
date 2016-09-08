@@ -2,26 +2,59 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Musicalistory</title>
-    <link rel="stylesheet" href="css/style.css" charset="utf-8"/>
+    <title>Twitch and Wine</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css" charset="utf-8"/>
   </head>
-  <body>
-    <header>
 
+  <body>
+
+    <header>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper purple lighten-1">
+            <a href="index.html" class="brand-logo center">Twitch and Wine</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+              <li><a href="index.html">Home</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </header>
 
-    <section>
-      <button type="button" name="button" value="1kCHru7uhxBUdzkm4gzRQc">Hamilton (musical)</button>
-      <button type="button" name="button" value="5sCVURwZOOd13unG0uJmNX">Jersey Boys</button>
-      <button type="button" name="button" value="43jnmMFOh0oubqTMIQk27n">Beautiful: The Carole King Musical</button>
-      <button type="button" name="button" value="7yoA2zaYc8HADFtqfMYk0y">Les Miserables</button>
-      <button type="button" name="button" value="583SgyGBxtEzsk9J8zBqiy">The Sound of Music</button>
+    <section class="purple lighten-4 valign-wrapper">
+      <div id="theform" class="row">
+          <h1 id="headtext" class="center-align">Let's Get Started!</h1>
+          <form class="center" action="index.html" method="post">
+            <button id="startbutt" class="btn waves-effect waves-light pink lighten-2" type="button" name="start" value="start">Start</button>
+          </form>
+      </div>
     </section>
 
-    <footer>
-
+    <footer class="page-footer purple lighten-1">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Twitch and Wine</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="index.html">Home</a></li>
+              <li><a class="grey-text text-lighten-3" href="https://mikeechen-jquerycalc.surge.sh">Need a Calculator?</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2016 Twich and Wine
+        </div>
+      </div>
     </footer>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
   </body>
 </html>

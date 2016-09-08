@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #e1bee7;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+section {
+  flex: 1 0 auto;
+}
+
+.navbar-fixed {
+  margin-bottom: 15px;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+}
+
+.button {
+  margin-right: 4px;
+  margin-left: 4px;
+}
+
+.gameimg {
+}
+
+.winelbl {
+  width: 50%;
+  height: auto;
+}
+
+.winecard {
+  min-height: 400px;
+}
