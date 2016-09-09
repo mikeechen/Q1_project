@@ -136,13 +136,19 @@
         $('form').append($sparkling);
       });
     } else {
+      let state = '';
+      if (user === 'stream') {
+        state = 'Streaming?';
+      } else {
+        state = 'Watching?';
+      }
       $bread = $(`<a href="#" id="game" class="breadcrumb">Games</a>`);
       $('.breadcrumbwrapper').append($bread);
       $('form').children().fadeOut('slow', function() {
         $('form').children().remove();
       });
       $('#headtext').fadeOut('slow', function() {
-        $('#headtext').fadeIn('slow').text('Which Game are You Watching?');
+        $('#headtext').fadeIn('slow').text('Which Game are You ' + state);
         $('section').toggleClass('valign-wrapper');
         gamelist();
       });
