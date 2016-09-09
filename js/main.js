@@ -290,7 +290,6 @@
     }
   }
 
-
   $('#startbutt').click(initfunc);
   $('form').on('click', '.button', saveinfo);
   $('section').on('click', '.games', getwine);
