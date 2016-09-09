@@ -42,7 +42,8 @@
       $img.attr({ src: game.pic });
       $cardimg.append($img);
       $card.append($cardimg);
-      const $title = $(`<a class="games" href="#"><p class="pink-text text-lighten-2">${game.name}</p></a><p id="view">Viewers: ${game.viewers}</p>`);
+      const $title = $(`<a class="games" href="#"><p class="pink-text text-lighten-2">${game.name}</p></a>
+                        <p id="view" class="grey-text text-darken-2">Viewers: ${game.viewers}</p>`);
 
       if (!game.viewers) {
         $('#view').remove();
@@ -76,7 +77,7 @@
       $cardimg.append($img);
       $card.append($cardimg);
       const $title = $(`<p class="pink-text text-lighten-2">${wine.name}</p>
-                      <p id="priceandrating">Price: $${wine.price} Rating: ${wine.rating}</p>`);
+                        <p class="grey-text text-darken-2" id="priceandrating">Price: $${wine.price} Rating: ${wine.rating}</p>`);
 
       $cardcont.append($title);
       $cardaction.append(`<a href="${wine.url}">Find it on Wine.com!</a>`);
@@ -85,11 +86,8 @@
       $col.append($card);
       $row.append($col);
     });
-
     $('section').append($row);
-    const $streambutt = $(`<a href="https://www.twitch.tv/directory/game/${gamename}">
-                          <button class="center-align btn offset-s3 col s6" type="button">
-                          Go to Twitch!</button></a>`);
+    const $streambutt = $(`<a href="https://www.twitch.tv/directory/game/${gamename}"><button class="center-align btn offset-s3 col s6" type="button">Go to Twitch!</button></a>`);
 
     $('#winelistings').append($streambutt);
     winelist = [];
@@ -179,7 +177,6 @@
       regioncode = wregion[Math.random() * wregion.length];
     }
     const $wines = $.getJSON(`http://services.wine.com/api/beta2/service.svc/JSON/catalog?size=6&apikey=c87acfbb1f41bd23be2176298e5afc32&instock=true&term=${variety}+wine&filter=rating(${points}|${points})+categories(490+${regioncode})`);
-
     $wines.done(function(data) {
       $('#headtext').fadeOut('fast', function() {
         $('#headtext').fadeIn('slow').text('Here\'s your list of wine! Enjoy!' );
@@ -264,6 +261,7 @@
       gamename = '';
       $('section').children('#winelistings').remove();
       $('nav').children('.bread').children('.breadcrumbwrapper').children('#results').remove();
+      $('nav').children('.bread').children('.breadcrumbwrapper').children('#game').remove();
       if ($('section').hasClass('valign-wrapper') === false) {
         $('section').toggleClass('valign-wrapper');
         $('form').removeAttr('id');
