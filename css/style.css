@@ -72,3 +72,7 @@ footer {
 .btn:hover {
   background-color: #f73100;
 }
+
+.btn:visited {
+  background-color: #aa2200;
+}
