@@ -2,7 +2,6 @@ Twitch and Wine!
 
 Ever had the problem of trying to decide which wine to have while watching a Twitch stream?
 Look no further!!
-https://mikeechen-q1.surge.sh
 
 What's the name of your project?
 What problem does it solve?
