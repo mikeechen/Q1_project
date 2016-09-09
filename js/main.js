@@ -219,6 +219,13 @@
     });
   }
 
+  function sectionclasstoggle() {
+    if ($('section').hasClass('valign-wrapper') === false) {
+      $('section').toggleClass('valign-wrapper');
+      $('form').removeAttr('id');
+    }
+  }
+
   function usebreadcrumb(event) {
     event.preventDefault();
     const value = $(event.target).text().toLowerCase();
@@ -232,12 +239,14 @@
         $('form').children().remove();
       });
       $('nav').children('.bread').remove();
-      $('section').children('#gamelistings').remove();
-      $('section').children('#winelistings').remove();
-      if ($('section').hasClass('valign-wrapper') === false) {
-        $('section').toggleClass('valign-wrapper');
-        $('form').removeAttr('id');
-      }
+      $('section').children('#gamelistings').fadeOut('slow', function() {
+        $('section').children('#gamelistings').remove();
+        sectionclasstoggle();
+      });
+      $('section').children('#winelistings').fadeOut('slow', function() {
+        $('section').children('#winelistings').remove();
+        sectionclasstoggle();
+      });
       initfunc();
     } else if (value === 'variety') {
       variety = '';
@@ -246,26 +255,27 @@
       $('form').children().fadeOut('slow', function() {
         $('form').children().remove();
       });
-      $('section').children('#gamelistings').remove();
-      $('section').children('#winelistings').remove();
+      $('section').children('#gamelistings').fadeOut('slow', function() {
+        $('section').children('#gamelistings').remove();
+        sectionclasstoggle();
+      });
+      $('section').children('#winelistings').fadeOut('slow', function() {
+        $('section').children('#winelistings').remove();
+        sectionclasstoggle();
+      });
       $('nav').children('.bread').children('.breadcrumbwrapper').children('#variety').remove();
       $('nav').children('.bread').children('.breadcrumbwrapper').children('#game').remove();
       $('nav').children('.bread').children('.breadcrumbwrapper').children('#results').remove();
-      if ($('section').hasClass('valign-wrapper') === false) {
-        $('section').toggleClass('valign-wrapper');
-        $('form').removeAttr('id');
-      }
       nextstep(user, variety);
     } else if (value === 'games') {
       viewers = 0;
       gamename = '';
-      $('section').children('#winelistings').remove();
+      $('section').children('#winelistings').fadeOut('slow', function() {
+        $('section').children('#winelistings').remove();
+        sectionclasstoggle();
+      });
       $('nav').children('.bread').children('.breadcrumbwrapper').children('#results').remove();
       $('nav').children('.bread').children('.breadcrumbwrapper').children('#game').remove();
-      if ($('section').hasClass('valign-wrapper') === false) {
-        $('section').toggleClass('valign-wrapper');
-        $('form').removeAttr('id');
-      }
       nextstep();
     }
   }
@@ -279,6 +289,7 @@
       nextstep(user, variety);
     }
   }
+
 
   $('#startbutt').click(initfunc);
   $('form').on('click', '.button', saveinfo);
