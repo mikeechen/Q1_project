@@ -185,7 +185,7 @@
     const $wines = $.getJSON(`http://services.wine.com/api/beta2/service.svc/JSON/catalog?size=6&apikey=c87acfbb1f41bd23be2176298e5afc32&instock=true&term=${variety}+wine&filter=rating(${points}|${points})+categories(490+${regioncode})`);
     $wines.done(function(data) {
       $('#headtext').fadeOut('fast', function() {
-        $('#headtext').fadeIn('slow').text('Here\'s your list of wine! Enjoy!' );
+        $('#headtext').fadeIn('slow').text('Here\'s your list of wine! Enjoy!');
         $('section').toggleClass('valign-wrapper');
         $('#progressbar').remove();
       });
