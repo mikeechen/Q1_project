@@ -4,10 +4,13 @@
 }
 
 body {
-  background-color: #e1bee7;
+  background-image: url(../img/winebottles.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  color: #00aa77;
 }
 
 section {
@@ -60,4 +63,12 @@ footer {
 
 .logo {
   margin-right: 10px;
+}
+
+.btn {
+  background-color: #aa2200;
+}
+
+.btn:hover {
+  background-color: #f73100;
 }

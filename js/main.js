@@ -55,7 +55,7 @@
     $('section').append($row);
     if ($('form').is('#searchgames') === false) {
       $('form').append(`<div class="col offset-s2 s7"><input type="text" placeholder="Can't find your game?" id="search" name="search"/></div>`);
-      $('form').append(`<input type="submit" value="Search" id="searchbutt" class="btn waves-effect waves-light pink lighten-2 left"/>`);
+      $('form').append(`<input type="submit" value="Search" id="searchbutt" class="btn waves-effect waves-light left"/>`);
       $('form').attr('id', 'searchgames');
     }
     games = [];
@@ -88,7 +88,7 @@
 
     $('section').append($row);
     const $streambutt = $(`<a href="https://www.twitch.tv/directory/game/${gamename}">
-                          <button class="center-align btn offset-s3 col s6 pink lighten-2" type="button">
+                          <button class="center-align btn offset-s3 col s6" type="button">
                           Go to Twitch!</button></a>`);
 
     $('#winelistings').append($streambutt);
@@ -98,8 +98,8 @@
   function initfunc() {
     $('#headtext').fadeOut('slow', function() {
       $('#headtext').fadeIn('slow').text('Are You Watching or Streaming?');
-      const $stream = $('<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="stream" value="stream">Streaming</button>');
-      const $watch = $('<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="watch" value="watch">Watching</button>');
+      const $stream = $('<button class="button btn waves-effect waves-light" type="button" name="stream" value="stream">Streaming</button>');
+      const $watch = $('<button class="button btn waves-effect waves-light" type="button" name="watch" value="watch">Watching</button>');
 
       $('form').append($stream);
       $('form').append($watch);
@@ -129,9 +129,9 @@
       });
       $('#headtext').fadeOut('slow', function() {
         $('#headtext').fadeIn('slow').text('Which Variety of Wine do you like?');
-        const $red = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="red" value="red">Red</button>`);
-        const $white = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="white" value="white">White</button>`);
-        const $sparkling = $(`<button class="button btn waves-effect waves-light pink lighten-2" type="button" name="spakling" value="sparkling">Sparkling</button>`);
+        const $red = $(`<button class="button btn waves-effect waves-light" type="button" name="red" value="red">Red</button>`);
+        const $white = $(`<button class="button btn waves-effect waves-light" type="button" name="white" value="white">White</button>`);
+        const $sparkling = $(`<button class="button btn waves-effect waves-light" type="button" name="spakling" value="sparkling">Sparkling</button>`);
 
         $('form').append($red);
         $('form').append($white);
