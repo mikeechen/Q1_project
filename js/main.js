@@ -8,7 +8,13 @@
   let variety = '';
   let viewers;
   let topviewers;
-  let $twitchlist = $.getJSON('https://api.twitch.tv/kraken/games/top?limit=24');
+  let $twitchlist = $.ajax({
+    type: 'GET',
+    url: 'https://api.twitch.tv/kraken/games/top?limit=24',
+    headers: {
+      'Client-ID': 'xdkq1uxnak2q7rj2tbr4z0m4uoe2us'
+    }
+  });
 
   $twitchlist.done(function(data) {
     data.top.forEach(function(elm) {
@@ -210,7 +216,13 @@
     event.preventDefault();
     const searchterm = $('#search').val();
 
-    $twitchlist = $.getJSON(`https://api.twitch.tv/kraken/search/games?q=${searchterm}&type=suggest`);
+    $twitchlist = $.ajax({
+      type: 'GET',
+      url: `https://api.twitch.tv/kraken/search/games?q=${searchterm}&type=suggest`,
+      headers: {
+        'Client-ID': 'xdkq1uxnak2q7rj2tbr4z0m4uoe2us'
+      }
+    });
     $twitchlist.done(function(data) {
       games = [];
       data.games.forEach(function(elm) {
